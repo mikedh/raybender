@@ -11,7 +11,7 @@ import logging
 import argparse
 from io import BytesIO
 from fnmatch import fnmatch
-from platform import system
+from platform import system, uname
 from typing import Optional
 from zipfile import ZipFile
 
@@ -183,9 +183,14 @@ def load_config(path: Optional[str] = None) -> list:
         return json.load(f)
 
 
-def is_current_platform(platform: str) -> bool:
+def is_current_platform(platform: str, architecture: Optional[str]) -> bool:
     """Check to see if a string platform identifier matches the current platform."""
     # 'linux', 'darwin', 'windows'
+
+    if architecture is not None:
+        if architecture != uname().machine:
+            return False
+
     current = system().lower().strip()
     if current.startswith("dar"):
         return platform.startswith("dar") or platform.startswith("mac")
@@ -216,8 +221,11 @@ if __name__ == "__main__":
         select = set(" ".join(args.install).replace(",", " ").split())
 
     for option in config:
-        if option["name"] in select and is_current_platform(option["platform"]):
+        if option["name"] in select and is_current_platform(
+            option["platform"], option.get("architecture", None)
+        ):
             subset = option.copy()
             subset.pop("name")
             subset.pop("platform")
+            subset.pop("architecture")
             handle_fetch(**subset)
