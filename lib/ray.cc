@@ -5,7 +5,7 @@
 
 namespace py = pybind11;
 
-#include <embree3/rtcore.h>
+#include <embree4/rtcore.h>
 
 py::tuple ray_scene_intersection(
         const void* scene_void,
@@ -43,8 +43,8 @@ py::tuple ray_scene_intersection(
     // Ray tracing.
 #pragma omp parallel for
     for (int i = 0; i < num_rays; ++i) {
-        RTCIntersectContext context;
-        rtcInitIntersectContext(&context);
+        RTCRayQueryContext context;
+        rtcInitRayQueryContext(&context);
         RTCRayHit ray_hit;
         ray_hit.ray.org_x = ray_origins_py_ptr[i * 3 + 0];
         ray_hit.ray.org_y = ray_origins_py_ptr[i * 3 + 1];
@@ -57,7 +57,7 @@ py::tuple ray_scene_intersection(
         ray_hit.ray.tfar = std::numeric_limits<float>::max();
         ray_hit.ray.id = i;
         ray_hit.hit.geomID = RTC_INVALID_GEOMETRY_ID;
-        rtcIntersect1(scene, &context, &ray_hit);
+        rtcIntersect1(scene,  &ray_hit);
         const unsigned int geometry_id = ray_hit.hit.geomID;
         const unsigned int primitive_id = ray_hit.hit.primID;
         geometry_ids_py_ptr[i * 2 + 0] = geometry_id;

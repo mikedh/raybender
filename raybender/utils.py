@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def compute_rays_for_simple_pinhole_camera(R, tvec, intrinsics):
     # Recover intrinsics.
     w, h, f, cx, cy = intrinsics
@@ -8,7 +9,7 @@ def compute_rays_for_simple_pinhole_camera(R, tvec, intrinsics):
     num_rays = h * w
 
     # Ray origins (same for all pixels).
-    center = - R.T @ tvec
+    center = -R.T @ tvec
     origins = np.tile(center[np.newaxis, :], (num_rays, 1))
 
     # Ray directions (one per pixel).
@@ -28,7 +29,7 @@ def compute_rays_for_simple_pinhole_camera(R, tvec, intrinsics):
 
 def filter_intersections(geom_ids, bcoords):
     # Geometry id is -1 if ray doesn't interesect any mesh.
-    valid = (geom_ids[:, 0] != -1)
+    valid = geom_ids[:, 0] != -1
     tids = geom_ids[:, 1][valid]
     bcoords = bcoords[valid]
 
@@ -38,7 +39,9 @@ def filter_intersections(geom_ids, bcoords):
     return tids, bcoords, valid
 
 
-def interpolate_rgbd_from_geometry(triangles, vertices, vertex_colors, tri_ids, bcoords, valid, R, tvec, w, h):
+def interpolate_rgbd_from_geometry(
+    triangles, vertices, vertex_colors, tri_ids, bcoords, valid, R, tvec, w, h
+):
     from ._raybender import barycentric_interpolator
 
     # Number of rays.
@@ -50,11 +53,11 @@ def interpolate_rgbd_from_geometry(triangles, vertices, vertex_colors, tri_ids, 
     else:
         # Compute ray hit colors.
         mesh_rgb = barycentric_interpolator(tri_ids, bcoords, triangles, vertex_colors)
-       
+
         # Populate final array.
         rgb = np.full([num_rays, 3], 0.0)
         rgb[valid] = np.clip(mesh_rgb, 0, 1)
-    
+
     # Interpolate depth.
     if vertices is None:
         depth = np.full(num_rays, np.nan)

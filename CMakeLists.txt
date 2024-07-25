@@ -4,7 +4,7 @@ project(raybender)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 find_package(OpenMP REQUIRED)
-find_package(embree 3.0 REQUIRED)
+find_package(embree 4.0 REQUIRED)
 
 add_subdirectory(pybind11)
 

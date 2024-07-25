@@ -1,4 +1,4 @@
-#include <embree3/rtcore.h>
+#include <embree4/rtcore.h>
 
 void* create_scene(std::string config) {
     RTCDevice device = rtcNewDevice(config.c_str());
