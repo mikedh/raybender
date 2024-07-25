@@ -45,7 +45,7 @@ class EmbreeScene:
         """
         """
         geom_ids, barycentric = rb.ray_scene_intersection(
-            self.scene, ray_origins, ray_directions
+            self._scene, ray_origins, ray_directions
         )
         return geom_ids, barycentric
 
