@@ -188,7 +188,7 @@ def is_current_platform(platform: str, architecture: Optional[str]) -> bool:
     # 'linux', 'darwin', 'windows'
 
     if architecture is not None:
-        if architecture != uname().machine:
+        if architecture.lower() not in uname().machine.lower():
             return False
 
     current = system().lower().strip()
@@ -219,6 +219,8 @@ if __name__ == "__main__":
         exit()
     else:
         select = set(" ".join(args.install).replace(",", " ").split())
+
+    print(system(), uname())
 
     for option in config:
         if option["name"] in select and is_current_platform(

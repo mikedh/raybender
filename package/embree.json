@@ -6,7 +6,7 @@
     "architecture": "x86_64",
     "sha256": "757e6e8b987d13ac34aa7c4c3657120fd54a78c2a1034e30dda5cd5df06f3cdd",
     "target": "../embree4",
-    "url": "https://github.com/RenderKit/embree/releases/download/v4.3.3/embree-4.3.3.x86_64.linux.tar"
+    "url": "https://github.com/RenderKit/embree/releases/download/v4.3.3/embree-4.3.3.x86_64.linux.tar.gz"
   },
   {
     "extract_skip": ["bin/*", "doc/*"],
