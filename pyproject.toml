@@ -25,7 +25,7 @@ manylinux-x86_64-image = "manylinux_2_28"
 before-test = "pip install pytest"
 test-command = "pytest -v {project}/test"
 before-build = "python {project}/package/fetch-embree.py --install embree4"
-environment = { embree_DIR="/project/embree4/lib/cmake/embree-4.3.1"}
+environment = { embree_DIR="/project/embree4/lib/cmake/embree-4.3.3"}
 
 [tool.cibuildwheel.windows]
 before-build = "pip install delvewheel && python {project}\\package\\fetch-embree.py --install embree4"
