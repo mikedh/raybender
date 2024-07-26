@@ -30,7 +30,7 @@
     "extract_skip": ["bin/*", "doc/*"],
     "name": "embree4",
     "platform": "windows",
-    "architecture": "x86_64",
+    "architecture": "amd64",
     "sha256": "d4c07f88df9f009dd84e4e9b9dcec32ad7d96f927bd88de00b721b0923d481a9",
     "target": "../embree4",
     "url": "https://github.com/RenderKit/embree/releases/download/v4.3.3/embree-4.3.3.x64.windows.zip"

@@ -184,7 +184,21 @@ def load_config(path: Optional[str] = None) -> list:
 
 
 def is_current_platform(platform: str, architecture: Optional[str]) -> bool:
-    """Check to see if a string platform identifier matches the current platform."""
+    """
+    Check to see if a string platform identifier matches the current platform.
+
+    Parameters
+    ----------
+    platform
+      Checked against `platform.system`
+    architecture
+      Checked against `platform.uname.machine`
+
+    Returns
+    -----------
+    matched
+      If the current platform matches the request.
+    """
     # 'linux', 'darwin', 'windows'
 
     if architecture is not None:
