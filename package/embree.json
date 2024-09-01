@@ -27,7 +27,7 @@
     "url": "https://github.com/RenderKit/embree/releases/download/v4.3.3/embree-4.3.3.arm64.macosx.zip"
   },
   {
-    "extract_skip": ["bin/*", "doc/*"],
+    "extract_skip": ["doc/*"],
     "name": "embree4",
     "platform": "windows",
     "architecture": "amd64",
