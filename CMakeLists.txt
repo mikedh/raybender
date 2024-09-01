@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
+cmake_policy(SET CMP0074 NEW)
 project(raybender)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
