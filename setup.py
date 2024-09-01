@@ -6,6 +6,25 @@ import subprocess
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 
+cwd = os.path.abspath(os.path.expanduser(os.path.dirname(__file__)))
+
+
+def embree_dir() -> str:
+    """
+    Run a simple search from this directory for
+    'embreeConfig.cmake' or 'embree-config.cmake'
+    and return the parent directory.
+    """
+    search = {"embree-config.cmake", "embreeConfig.cmake"}
+    root = os.path.join(cwd, "embree4")
+    assert os.path.isdir(root)
+    for path, b, file_names in os.walk(root):
+        for file_name in file_names:
+            if file_name in search:
+                assert os.path.isdir(path)
+                return path
+    raise ValueError("unable to find", search)
+
 
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir=""):
@@ -20,6 +39,7 @@ class CMakeBuild(build_ext):
             cmake_args = [
                 "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=" + extdir,
                 "-DPYTHON_EXECUTABLE=" + sys.executable,
+                "-Dembree_DIR=" + embree_dir(),
             ]
 
             cfg = "Debug" if self.debug else "Release"
