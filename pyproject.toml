@@ -34,6 +34,7 @@ repair-wheel-command = "DYLD_LIBRARY_PATH=embree4/lib delocate-wheel --require-a
 
 [tool.cibuildwheel.macos.environment]
 OpenMP_ROOT="/usr/local/opt/libomp"
+OpenMP_C_ROOT="/usr/local/opt/libomp"
 
 [tool.cibuildwheel.linux]
 before-build = "python {project}/package/fetch-embree.py --install embree4"
