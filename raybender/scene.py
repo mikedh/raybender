@@ -12,6 +12,7 @@ class EmbreeScene:
     A simple wrapper for the `raybender.raw` functions to hold
     geometry which can have ray queries run against it.
     """
+
     def __init__(self):
         self._scene = rb.create_scene()
 
@@ -42,8 +43,7 @@ class EmbreeScene:
     def intersection(
         self, ray_origins: NDArray[float64], ray_directions: NDArray[float64]
     ):
-        """
-        """
+        """ """
         geom_ids, barycentric = rb.ray_scene_intersection(
             self._scene, ray_origins, ray_directions
         )

@@ -14,6 +14,18 @@ def embree_dir() -> str:
     Run a simple search from this directory for
     'embreeConfig.cmake' or 'embree-config.cmake'
     and return the parent directory.
+
+    This is platform-agnostic and works on Linux, Mac, and Windows.
+
+    Returns
+    ----------
+    path
+      Absolute path for the directory containing the cmake file.
+
+    Raises
+    ----------
+    ValueError
+      If embree is not available somewhere below this root.
     """
     search = {"embree-config.cmake", "embreeConfig.cmake"}
     root = os.path.join(cwd, "embree4")
