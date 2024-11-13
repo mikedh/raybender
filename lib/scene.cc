@@ -3,8 +3,11 @@
 void* create_scene(std::string config) {
     RTCDevice device = rtcNewDevice(config.c_str());
     RTCScene scene = rtcNewScene(device);
-    // Avoid optimizations that lower the arithmetic accuracy.
-    // Solves most problems with rays passing through edges / vertices.
+    // RTC_SCENE_FLAG_COMPACT uses less RAM by avoiding algos consuming much
+    // memory and changing the acceleration structures to more compact ones.
+    // RTC_SCENE_FLAG_ROBUST avoids optimizations that lower the arithmetic
+    // accuracy - this solves most problems with rays passing through edges or
+    // vertices.
     rtcSetSceneFlags(scene, RTC_SCENE_FLAG_COMPACT | RTC_SCENE_FLAG_ROBUST);
     return (void*)scene;
 }
