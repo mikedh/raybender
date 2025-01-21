@@ -219,9 +219,7 @@ def is_current_platform(platform: str, architecture: Optional[str]) -> bool:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Install system packages for trimesh.")
     parser.add_argument("--install", type=str, action="append", help="Install package.")
-    parser.add_argument(
-        "--config", type=str, help="Specify a different config JSON path"
-    )
+    parser.add_argument("--config", type=str, help="Specify a different config JSON path")
 
     args = parser.parse_args()
 

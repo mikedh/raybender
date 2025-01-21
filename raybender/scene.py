@@ -16,9 +16,7 @@ class EmbreeScene:
     def __init__(self):
         self._scene = rb.create_scene()
 
-    def add_triangle_mesh(
-        self, vertices: NDArray[float64], faces: NDArray[int64]
-    ) -> int:
+    def add_triangle_mesh(self, vertices: NDArray[float64], faces: NDArray[int64]) -> int:
         """
         Add a mesh to the scene and return its geometry ID.
 
