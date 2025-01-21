@@ -10,6 +10,7 @@ requires-python = ">=3.9"
 authors = [{name = "Mihai Dusmanu", email = "mihai.dusmanu@inf.ethz.ch"}]
 description = "Embree bindings for Python"
 urls = {Homepage = "https://github.com/cvg/raybender"}
+license = {file = "LICENSE"}
 
 dependencies = ["numpy"]
 
@@ -78,7 +79,8 @@ before-build = "pip install delvewheel && python {project}\\package\\fetch-embre
 repair-wheel-command = "delvewheel repair --add-path embree4\\bin --no-mangle tbb12.dll;embree4.dll -w {dest_dir} {wheel}"
 
 [tool.cibuildwheel.macos]
-repair-wheel-command = "DYLD_LIBRARY_PATH=embree4/lib delocate-wheel -w {dest_dir} -v {wheel}"
+repair-wheel-command = "otool -L embree4/lib/libtbb.12.dtlib && DYLD_LIBRARY_PATH=embree4/lib delocate-wheel -w {dest_dir} -v {wheel}"
 
 [tool.cibuildwheel.linux]
 repair-wheel-command = "LD_LIBRARY_PATH=`realpath embree4/lib`; auditwheel repair -w {dest_dir} {wheel}"
+ 
