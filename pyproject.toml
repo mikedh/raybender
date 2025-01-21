@@ -14,7 +14,7 @@ urls = {Homepage = "https://github.com/cvg/raybender"}
 dependencies = ["numpy"]
 
 [project.optional-dependencies]
-test = ["trimesh", "pytest"]
+test = ["pytest", "trimesh", "xatlas"]
 
 [project.readme]
 file = "README.md"
