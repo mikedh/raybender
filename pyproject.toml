@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=59.0"]
+requires = ["setuptools>=59.0", "cmake"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -79,7 +79,7 @@ before-build = "pip install delvewheel && python {project}\\package\\fetch-embre
 repair-wheel-command = "delvewheel repair --add-path embree4\\bin --no-mangle tbb12.dll;embree4.dll -w {dest_dir} {wheel}"
 
 [tool.cibuildwheel.macos]
-repair-wheel-command = "otool -L embree4/lib/libtbb.dylib && DYLD_LIBRARY_PATH=embree4/lib delocate-wheel -w {dest_dir} -v {wheel}"
+repair-wheel-command = "MACOSX_DEPLOYMENT_TARGET=13.0 DYLD_LIBRARY_PATH=embree4/lib delocate-wheel -w {dest_dir} -v {wheel}"
 
 [tool.cibuildwheel.linux]
 repair-wheel-command = "LD_LIBRARY_PATH=`realpath embree4/lib`; auditwheel repair -w {dest_dir} {wheel}"
