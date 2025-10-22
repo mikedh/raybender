@@ -67,7 +67,7 @@ def test_ball_trimesh():
     v += vn * 1e-5
 
     with TrimeshRayScene(ts) as ray:
-        geom, bary = ray.intersection(ray_origins=v, ray_directions=vn)
+        geom, bary = ray.intersection(v, vn)
         hit = geom[:, 0] >= 0
 
         assert hit is not None
