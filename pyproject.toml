@@ -15,7 +15,7 @@ license = {file = "LICENSE"}
 dependencies = ["numpy"]
 
 [project.optional-dependencies]
-test = ["pytest", "trimesh", "xatlas", "scipy", "pillow"]
+test = ["pytest", "trimesh", "scipy", "pillow"]
 
 [project.readme]
 file = "README.md"
@@ -41,6 +41,7 @@ select = [
     "W", # style warnings
     "YTT", # sys.version
     "ISC002",
+    "ISC001",
     "NPY201",
     "TID251"
 ]

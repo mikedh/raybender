@@ -36,8 +36,16 @@ def test_basic():
 
 
 def generate_scene(s: float = 10.0, r: float = 1.0) -> trimesh.Scene:
-    ball = trimesh.creation.uv_sphere(radius=1.0).unwrap()
-    plane = trimesh.creation.box(bounds=[[-s, -s, -2 * r], [s, s, -r]]).unwrap()
+    ball = trimesh.creation.uv_sphere(radius=1.0)
+    plane = trimesh.creation.box(bounds=[[-s, -s, -2 * r], [s, s, -r]])
+
+    try:
+        import xatlas
+
+        ball = ball.unwrap()
+        plane = plane.unwrap()
+    except ImportError:
+        pass
 
     # ball.visual.material.image = checkerboard()
 
