@@ -19,15 +19,14 @@ jobs:
         submodules: true
     - uses: actions/setup-python@v4
       with:
-        python-version: "3.12"
+        python-version: "3.13"
     - name: Build SDist
       run: pip install twine build && python -m build . --sdist 
     - name: Check metadata
       run: twine check dist/*
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         path: dist/*.tar.gz
-
 
   build_wheels:
     name: Wheels on ${{ matrix.os }}
@@ -35,21 +34,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest, macos-13]
-
+        os: [ubuntu-latest, windows-latest, macos-latest, macos-15-intel]
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: true
-
-    - uses: pypa/cibuildwheel@v2.22.0
-
+    - uses: pypa/cibuildwheel@v3.2.1
     - name: Upload wheels
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
+        name: wheels-${{ matrix.os }}
         path: wheelhouse/*.whl
-
-
   upload_all:
     name: Release To PyPi
     needs: [build_wheels, build_sdist]
@@ -59,11 +54,10 @@ jobs:
     steps:
     - uses: actions/setup-python@v4
       with:
-        python-version: "3.12"
-
-    - uses: actions/download-artifact@v3
+        python-version: "3.13"
+    - uses: actions/download-artifact@v4
       with:
-        name: artifact
         path: dist
-
-    - uses: pypa/gh-action-pypi-publish@v1.8.10
+        pattern: wheels-*
+        merge-multiple: true
+    - uses: pypa/gh-action-pypi-publish@release/v1.13.0
